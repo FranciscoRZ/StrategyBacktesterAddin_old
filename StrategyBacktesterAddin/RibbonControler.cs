@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using System.Windows.Forms;
 using System.Globalization;
@@ -35,6 +31,8 @@ namespace StrategyBacktesterAddin
                 selectedRange.Worksheet.Cells[firstRow, firstCol + 1] = _startDate;
                 selectedRange.Worksheet.Cells[firstRow, firstCol + 2] = _endDate;
             }
+
+            AlphaVantageDataImporter.Import(_ticker, _startDate, _endDate);
         }
 
         public void GetTickerValue(CustomUI.IRibbonControl control, string text)
@@ -53,7 +51,10 @@ namespace StrategyBacktesterAddin
             }
             catch (FormatException e)
             {
-                MessageBox.Show(e.Message);
+                if (!string.IsNullOrEmpty(text))
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
         }
 
@@ -65,7 +66,10 @@ namespace StrategyBacktesterAddin
             }
             catch (FormatException e)
             {
-                MessageBox.Show(e.Message);
+                if (!string.IsNullOrEmpty(text))
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
         }
     }
