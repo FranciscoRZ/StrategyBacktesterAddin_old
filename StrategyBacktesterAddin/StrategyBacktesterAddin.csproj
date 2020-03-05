@@ -72,9 +72,6 @@
     <None Include="packages.config" />
     <None Include="Properties\ExcelDna.Build.props" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="AlphaVantageConfig.xml" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\ExcelDna.AddIn.1.0.0\build\ExcelDna.AddIn.targets" Condition="Exists('..\packages\ExcelDna.AddIn.1.0.0\build\ExcelDna.AddIn.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

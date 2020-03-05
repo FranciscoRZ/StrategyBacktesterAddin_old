@@ -21,7 +21,7 @@ namespace StrategyBacktesterAddin
         {
             var application = (Excel.Application)ExcelDnaUtil.Application;
             object selection = application.Selection;
-            if (selection is Excel.Range)
+            /* if (selection is Excel.Range)
             {
                 var selectedRange = (Excel.Range)selection;
                 int firstCol = selectedRange.Column;
@@ -30,9 +30,9 @@ namespace StrategyBacktesterAddin
                 selectedRange.Worksheet.Cells[firstRow, firstCol] = _ticker;
                 selectedRange.Worksheet.Cells[firstRow, firstCol + 1] = _startDate;
                 selectedRange.Worksheet.Cells[firstRow, firstCol + 2] = _endDate;
-            }
+            } */
 
-            AlphaVantageDataImporter.Import(_ticker, _startDate, _endDate);
+            AlphaVantageDataImporter.ImportData(_ticker, _startDate, _endDate);
         }
 
         public void GetTickerValue(CustomUI.IRibbonControl control, string text)
