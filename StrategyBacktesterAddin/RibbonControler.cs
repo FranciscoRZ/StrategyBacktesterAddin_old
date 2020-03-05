@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Windows.Forms;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using CustomUI = ExcelDna.Integration.CustomUI;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -15,8 +17,9 @@ namespace StrategyBacktesterAddin
     public class RibbonControler: CustomUI.ExcelRibbon
     {
         private string _ticker;
-        private string _startDate;
-        private string _endDate;
+        private DateTime _startDate;
+        private DateTime _endDate;
+        private CultureInfo _culture = new CultureInfo("fr-FR");
 
         public void OnImportDataPress(CustomUI.IRibbonControl control)
         {
@@ -38,23 +41,31 @@ namespace StrategyBacktesterAddin
         {
             if (!string.IsNullOrEmpty(text))
             {
-                _ticker = text;
+                this._ticker = text;
             }
         }
 
         public void GetStartDateValue(CustomUI.IRibbonControl control, string text)
-        {
-            if (!string.IsNullOrEmpty(text))
+        {   
+            try
             {
-                _startDate = text;
+                this._startDate = DateTime.Parse(text, this._culture);
+            }
+            catch (FormatException e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
 
         public void GetEndDateValue(CustomUI.IRibbonControl control, string text)
         {
-            if (!string.IsNullOrEmpty(text))
+            try
             {
-                _endDate = text;
+                this._endDate = DateTime.Parse(text, this._culture);
+            }
+            catch (FormatException e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
     }

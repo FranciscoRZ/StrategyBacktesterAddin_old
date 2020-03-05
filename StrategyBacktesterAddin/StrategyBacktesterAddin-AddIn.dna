@@ -34,7 +34,7 @@
                       onAction='OnImportDataPress'
                       imageMso='QuerySelectQueryType' />
               <editBox id='ticker' label='Ticker' onChange='GetTickerValue' sizeString='WWWWWW'/>
-              <editBox id='startDate' label='Start Date' onChange='GetStartDateValue' sizeString='WWWWWW'
+              <editBox id='startDate' label='St art Date' onChange='GetStartDateValue' sizeString='WWWWWW'
                        screentip='Date format' supertip='dd/mm/yyyy' />
               <editBox id='endDate' label='End Date' onChange='GetEndDateValue' sizeString='WWWWWW'
                        screentip='Date format' supertip='dd/mm/yyyy' />
