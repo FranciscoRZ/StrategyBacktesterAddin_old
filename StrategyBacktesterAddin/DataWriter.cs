@@ -5,23 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Excel = Microsoft.Office.Interop.Excel;
-using ExcelDna;
+using ExcelDna.Integration;
 using Model = ThreeFourteen.AlphaVantage.Model;
 
     namespace StrategyBacktesterAddin
 {
-    public class DataWriter
+    public static class DataWriter
     {
-        private Model.TimeSeriesEntry[] _data;
+        private static Excel.Application _xlApp = (Excel.Application)ExcelDnaUtil.Application;
+        private static Excel.Workbook _cntWb = _xlApp.ActiveWorkbook;
 
-        public void Write()
+        public static void WriteStockData(string ticker, Model.TimeSeriesEntry[] data)
         {
-
-        }
-
-        public DataWriter(Model.TimeSeriesEntry[] data)
-        {
-            this._data = data;
+            Excel.Worksheet ws = _cntWb.Worksheets.Add(Type: Excel.XlSheetType.xlWorksheet);
+            
+            ws.Name = ticker + " data" ;
+            ws.Range["A1", "B1"].Font.Bold = true;
+            ws.Range["A1", "E1"].Value2 = new string[] { "Date", "Open", "Close", "High", "Low" };
         }
     }
 }
