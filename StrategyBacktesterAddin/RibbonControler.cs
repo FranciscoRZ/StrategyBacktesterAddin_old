@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using CustomUI = ExcelDna.Integration.CustomUI;
 using Excel = Microsoft.Office.Interop.Excel;
 using ExcelDna.Integration;
+using Model = ThreeFourteen.AlphaVantage.Model;
 
 namespace StrategyBacktesterAddin
 {
@@ -19,20 +20,13 @@ namespace StrategyBacktesterAddin
 
         public void OnImportDataPress(CustomUI.IRibbonControl control)
         {
-            var application = (Excel.Application)ExcelDnaUtil.Application;
-            object selection = application.Selection;
-            /* if (selection is Excel.Range)
-            {
-                var selectedRange = (Excel.Range)selection;
-                int firstCol = selectedRange.Column;
-                int firstRow = selectedRange.Row;
-
-                selectedRange.Worksheet.Cells[firstRow, firstCol] = _ticker;
-                selectedRange.Worksheet.Cells[firstRow, firstCol + 1] = _startDate;
-                selectedRange.Worksheet.Cells[firstRow, firstCol + 2] = _endDate;
-            } */
-
-            AlphaVantageDataImporter.ImportData(_ticker, _startDate, _endDate);
+            // Get instance of importer
+            var importer = AlphaVantageDataImporter.Instance;
+            importer.ImportData(_ticker, _startDate, _endDate);
+            Model.TimeSeriesEntry[] data = importer.GetData();
+            var importer2 = AlphaVantageDataImporter.Instance;
+            Model.TimeSeriesEntry[] data2 = importer2.GetData();
+            DataWriter.WriteStockData(_ticker, data);
         }
 
         public void GetTickerValue(CustomUI.IRibbonControl control, string text)
