@@ -4,9 +4,6 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using CustomUI = ExcelDna.Integration.CustomUI;
-using Excel = Microsoft.Office.Interop.Excel;
-using ExcelDna.Integration;
-using Model = ThreeFourteen.AlphaVantage.Model;
 
 namespace StrategyBacktesterAddin
 {
@@ -21,11 +18,10 @@ namespace StrategyBacktesterAddin
         public void OnImportDataPress(CustomUI.IRibbonControl control)
         {
             // Get instance of importer
-            var importer = AlphaVantageDataImporter.Instance;
+            var importer = DataImporter.Instance;
             importer.ImportData(_ticker, _startDate, _endDate);
-            Model.TimeSeriesEntry[] data = importer.GetData();
-            var importer2 = AlphaVantageDataImporter.Instance;
-            Model.TimeSeriesEntry[] data2 = importer2.GetData();
+            //Model.TimeSeriesEntry[] data = importer.GetData();
+            var data = importer.GetData();
             DataWriter.WriteStockData(_ticker, data);
         }
 
